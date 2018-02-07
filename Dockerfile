@@ -1,5 +1,6 @@
-FROM alpine:3.7
-LABEL maintainer="The Gitea Authors"
+FROM resin/armhf-alpine
+LABEL maintainer="Felix Krull"
+RUN ["cross-build-start"]
 
 EXPOSE 22 3000
 
@@ -37,4 +38,9 @@ ENTRYPOINT ["/usr/bin/entrypoint"]
 CMD ["/bin/s6-svscan", "/etc/s6"]
 
 COPY docker /
-COPY gitea /app/gitea/gitea
+ARG RELEASE
+ARG ARCH=arm-6
+ADD https://github.com/go-gitea/gitea/releases/download/v${RELEASE}/gitea-${RELEASE}-linux-${ARCH} /app/gitea/gitea
+RUN chmod 0755 /app/gitea/gitea
+
+RUN ["cross-build-end"]
