@@ -38,7 +38,7 @@ ENTRYPOINT ["/usr/bin/entrypoint"]
 CMD ["/bin/s6-svscan", "/etc/s6"]
 
 COPY docker /
-ARG RELEASE=1.3.2
+ARG RELEASE=1.3.3
 ARG ARCH=arm-6
 ADD https://github.com/go-gitea/gitea/releases/download/v${RELEASE}/gitea-${RELEASE}-linux-${ARCH} /app/gitea/gitea
 RUN chmod 0755 /app/gitea/gitea
